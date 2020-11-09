@@ -1,0 +1,3 @@
+
+*.pyc
+iot_project/light/migrations/__pycache__/*
