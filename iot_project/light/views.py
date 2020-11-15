@@ -1,22 +1,41 @@
 from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login
-from .forms import UserForm, ProfileForm
-from django.http import HttpResponseRedirect
+from .models import light,area
+from .forms import EmpForm
+from django.http import HttpResponseRedirect,HttpResponse,JsonResponse
+
 
 # Create your views here.
 
+def signup(request):
+    return render(request, 'register.html')
+
+
+
+def adminview(request):
+    l=light.objects.all()
+    for i in l:
+        areaobj=area.objects.get(areacode=i.areafk_id)
+        i.address=areaobj.address
+    eform=EmpForm()
+    return render(request,'light/admin_page.html',{"lights":l,"eform":eform})
+
 def register(request):
-    if request.method == 'POST':
-        form = UserForm(request.POST,instance=request.user)
-        form2= ProfileForm(request.POST,instance=request.user.profile)
-        if form.is_valid() and form2.is_valid():
-            form.save()
-            form2.save()
-            return HttpResponseRedirect('http://127.0.0.1:8000/')
-    else:
-        form = UserForm(instance=request.user)
-        form2= ProfileForm(instance=request.user.profile)
-    dic = {'form': form,'form2':form2}
-    return render(request, 'register.html',dic)
-    
+    eform=EmpForm(request.POST)
+    if eform.is_valid():
+        try:
+            eform.save()
+            data={"s":"success"}
+            return JsonResponse(data)
+        except Exception:
+            pass
+    data={"s":"failed"}
+    return JsonResponse(data)
+
+def empview(request):
+    emp=request.user
+    print(emp)
+    l=light.objects.all()
+    for i in l:
+        areaobj=area.objects.get(areacode=i.areafk_id)
+        i.address=areaobj.address
+    return render(request,'light/emp_page.html',{"lights":l})

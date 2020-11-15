@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" href="/static/style1.css">
+   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+  <title>Admin Page</title>
+  </head>
+
+  <body>
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	   <div class="container-fluid">
+		  <a class="navbar-brand" href="/">Sanjeevini</a>
+		  <div class="navbar-nav ml-auto">
+		  <span><a class="nav-link" href="/workapp/doc_logout">Logout</a></span>
+		</div>
+	</div>
+	</nav>
+	<div class=" container-fluid">
+	<div class="row">
+        <div class="col-md-8 left">
+            <h3 class="detail">Streetlight List: </h3>
+            <div class="row">
+		{% for i in lights %}
+			<div class="col-lg-4 col-sm-6">
+			<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Light id: {{ i.id }}</h5>
+                <p class="card-text">Area code: {{ i.areafk_id }}</p>
+                <p class="card-text">Address: {{ i.address }}</p>
+				<div class="buttondiv">
+					<button class="btn btn-primary dreg" id="{{ i.id }}"> View Details</button> 
+				</div>
+			</div>
+			</div>
+			</div>
+        {% endfor %}
+    </div>
+    </div>
+    <div class="col-md-4 right">
+        <div class="p-4 box">
+            <h5>Register Employee</h5>
+            <form id="eform"> {% csrf_token %}
+                <div class="form-group">
+                    <label>Employee ID</label>
+                {{eform.username}}  
+                </div>
+                  <div class="form-group">
+                    <label>AreaCode</label>
+                {{eform.areafk}}
+                  </div>
+                <div class="form-group">
+                  <label>Email address</label>
+                    {{eform.email}}
+                  </div>
+                <div class="form-group">
+                  <label>Password</label>
+                  {{eform.password1}}
+                </div>
+                <div class="form-group">
+                  <label>Confirm Password</label>
+                  {{eform.password2}}
+                </div>
+                <button type="submit" class="btn btn-primary" id="empreg_id">Submit</button>
+              </form>
+        </div>
+        <div class="p-4 box">
+            <h5>Register Light</h5>
+            <form>
+                  <div class="form-group">
+                    <label>AreaCode</label>
+                    <input type="text" class="form-control" id="examplearea" aria-describedby="emailHelp">
+                  </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+        </div>
+        <div class="p-4 box">
+            <h5>Add Address</h5>
+            <form>
+                  <div class="form-group">
+                    <label>AreaCode</label>
+                    <input type="text" class="form-control" id="examplearea" aria-describedby="emailHelp">
+                  </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Address</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+        </div>
+    </div>
+	</div>
+  
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+	<script>
+	$(document).ready(function(){
+	  $('#eform').submit(function(){
+      event.preventDefault();
+	    $.post("/light/register/",
+      $(this).serialize(),
+      function(data){
+      if (data.s=="success"){
+        alert("Success");
+        location.reload(true);
+        }
+      else {
+        alert("Failed");
+        location.reload(true);
+        }
+      },
+  )
+	});
+
+	});
+	
+	</script>
+</body>
+</html>
