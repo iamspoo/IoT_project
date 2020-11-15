@@ -64,32 +64,30 @@ def empview(request):
     
 def adminsignin(request):
     admin=None
-    uname=request.POST.get("username")
+    username=request.POST.get("username")
     password=request.POST.get("password")
-    admin=User.objects.filter(username=uname)
-    if not admin or admin[0].is_superuser!=1:
-        return render(request,'home.html',{'m':'Acess Denied, Not a admin'})
-    else:
-        if admin[0].password == password:
-            request.session['adminid']=admin[0].id
-            return HttpResponseRedirect('/light/adminpage')
+    admin = authenticate(request, username=username, password=password)
+    if admin is not None:
+        if admin.is_superuser!=1:
+            return render(request,'home.html',{'m':'Acess Denied, Not an admin'})
         else:
-            return render(request,'home.html',{'m':'Invalid username or password'})
+            login(request, admin)
+            return HttpResponseRedirect('/light/adminpage') 
+    else:
+        return render(request,'home.html',{'m':'Invalid username or password'})
             
             
 def empsignin(request):
     user=None
-    uname=request.POST.get("username")
-    password=request.POST.get("password")
-    user=User.objects.filter(username=uname)
-    '''user=authenticate(request,username=uname,password=password)
-    login(request,user)'''
-    if not user or user[0].password != password:
-        return render(request,'home.html',{'m':'Invalid username or password'})
+    username=request.POST.get("eusername")
+    password=request.POST.get("epassword")
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return HttpResponseRedirect('/light/emppage') 
     else:
-        request.session['userid']=user[0].id
-        return HttpResponseRedirect('/light/emppage')
-  
+        return render(request,'home.html')
+
     
             
             
