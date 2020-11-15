@@ -12,9 +12,9 @@
   <body>
    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	   <div class="container-fluid">
-		  <a class="navbar-brand" href="/">Sanjeevini</a>
+		  <a class="navbar-brand" href="/">Smart Street Light</a>
 		  <div class="navbar-nav ml-auto">
-		  <span><a class="nav-link" href="/workapp/doc_logout">Logout</a></span>
+		  <span><a class="nav-link" href="/light/logout">Logout</a></span>
 		</div>
 	</div>
 	</nav>
@@ -44,50 +44,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
-	<script>
-	$(document).ready(function(){
-	$('.bd').click(function(){
-	var id=this.id.toString();
-	console.log(id);
-	$.ajax({
-	type:'GET',
-	url:'/workapp/aux/',
-	data:{'id':id},
-	datatype:'json',
-	success:function(data){
-		if (data.s=="success"){
-			alert("Success");
-			location.reload(true);
-			}
-		else {
-			alert("Failed");
-			location.reload(true);
-			}
-		},
-	})
-	});
-    $('.dreg').click(function(){
-	var did=this.id.toString();
-	console.log(did);
-	$.ajax({
-	type:'GET',
-	url:'/workapp/dreg/',
-	data:{'id':did},
-	datatype:'json',
-	success:function(data){
-		if (data.s=="success"){
-			alert("Deregistered");
-			location.reload(true);
-			}
-		else {
-			alert("Failed");
-			location.reload(true);
-			}
-		},
-	})
-	});
-	});
-	
-	</script>
 </body>
 </html>
