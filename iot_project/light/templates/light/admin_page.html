@@ -63,29 +63,29 @@
                   <label>Confirm Password</label>
                   {{eform.password2}}
                 </div>
-                <button type="submit" class="btn btn-primary" id="empreg_id">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
               </form>
         </div>
         <div class="p-4 box">
             <h5>Register Light</h5>
-            <form>
+            <form id="lightform">{% csrf_token %}
                   <div class="form-group">
                     <label>AreaCode</label>
-                    <input type="text" class="form-control" id="examplearea" aria-describedby="emailHelp">
+                    {{lform.areafk}}
                   </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
         </div>
         <div class="p-4 box">
             <h5>Add Address</h5>
-            <form>
+            <form id="areaform">{% csrf_token %}
                   <div class="form-group">
                     <label>AreaCode</label>
-                    <input type="text" class="form-control" id="examplearea" aria-describedby="emailHelp">
+                    {{aform.areacode}}
                   </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Address</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  {{aform.address}}
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
@@ -118,8 +118,40 @@
   )
 	});
 
+  $('#lightform').submit(function(){
+      event.preventDefault();
+	    $.post("/light/lightreg/",
+      $(this).serialize(),
+      function(data){
+      if (data.s=="success"){
+        alert("Success\nID of new light : "+data.id);
+        location.reload(true);
+        }
+      else {
+        alert("Failed");
+        location.reload(true);
+        }
+      },
+  )
 	});
-	
+
+  $('#areaform').submit(function(){
+      event.preventDefault();
+	    $.post("/light/areareg/",
+      $(this).serialize(),
+      function(data){
+      if (data.s=="success"){
+        alert("Success");
+        location.reload(true);
+        }
+      else {
+        alert("Failed");
+        location.reload(true);
+        }
+      },
+  )
+	});
+	});
 	</script>
 </body>
 </html>

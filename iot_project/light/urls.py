@@ -10,4 +10,7 @@ path('emppage/',views.empview,name='emppage'),
 path('register/',views.register,name='register'),
 path('adminsignin/',views.adminsignin,name='adminsignin'),
 path('empsignin/',views.empsignin,name='empsignin'),
+path('lightreg/',views.lightreg,name='lightreg'),
+path('areareg/',views.areareg,name='areareg'),
+
 ]
