@@ -42,7 +42,7 @@
     <div class="col-md-4 right">
         <div class="p-4 box">
             <h5>Register Employee</h5>
-            <form action="/light/register/" method="POST"> {% csrf_token %}
+            <form id="eform"> {% csrf_token %}
                 <div class="form-group">
                     <label>Employee ID</label>
                 {{eform.username}}  
@@ -63,7 +63,7 @@
                   <label>Confirm Password</label>
                   {{eform.password2}}
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" id="empreg_id">Submit</button>
               </form>
         </div>
         <div class="p-4 box">
@@ -101,46 +101,23 @@
 
 	<script>
 	$(document).ready(function(){
-	$('.bd').click(function(){
-	var id=this.id.toString();
-	console.log(id);
-	$.ajax({
-	type:'GET',
-	url:'/workapp/aux/',
-	data:{'id':id},
-	datatype:'json',
-	success:function(data){
-		if (data.s=="success"){
-			alert("Success");
-			location.reload(true);
-			}
-		else {
-			alert("Failed");
-			location.reload(true);
-			}
-		},
-	})
+	  $('#eform').submit(function(){
+      event.preventDefault();
+	    $.post("/light/register/",
+      $(this).serialize(),
+      function(data){
+      if (data.s=="success"){
+        alert("Success");
+        location.reload(true);
+        }
+      else {
+        alert("Failed");
+        location.reload(true);
+        }
+      },
+  )
 	});
-    $('.dreg').click(function(){
-	var did=this.id.toString();
-	console.log(did);
-	$.ajax({
-	type:'GET',
-	url:'/workapp/dreg/',
-	data:{'id':did},
-	datatype:'json',
-	success:function(data){
-		if (data.s=="success"){
-			alert("Deregistered");
-			location.reload(true);
-			}
-		else {
-			alert("Failed");
-			location.reload(true);
-			}
-		},
-	})
-	});
+
 	});
 	
 	</script>

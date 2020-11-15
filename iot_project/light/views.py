@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import light,area
 from .forms import EmpForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse,JsonResponse
 
 
 # Create your views here.
@@ -24,13 +24,16 @@ def register(request):
     if eform.is_valid():
         try:
             eform.save()
-            return HttpResponseRedirect('/light/adminpage')
+            data={"s":"success"}
+            return JsonResponse(data)
         except Exception:
             pass
-    return HttpResponseRedirect('/light/signup')
+    data={"s":"failed"}
+    return JsonResponse(data)
 
 def empview(request):
-
+    emp=request.user
+    print(emp)
     l=light.objects.all()
     for i in l:
         areaobj=area.objects.get(areacode=i.areafk_id)
