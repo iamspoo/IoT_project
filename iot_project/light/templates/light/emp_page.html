@@ -6,7 +6,7 @@
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    <link rel="stylesheet" href="/static/style1.css">
    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
-  <title>Admin Page</title>
+  <title>Doctor Page</title>
   </head>
 
   <body>
@@ -19,10 +19,8 @@
 	</div>
 	</nav>
 	<div class=" container-fluid">
+	<h3 class="detail"> Streetlight List: </h3>
 	<div class="row">
-        <div class="col-md-8 left">
-            <h3 class="detail">Streetlight List: </h3>
-            <div class="row">
 		{% for i in lights %}
 			<div class="col-lg-4 col-sm-6">
 			<div class="card">
@@ -37,61 +35,8 @@
 			</div>
 			</div>
         {% endfor %}
-    </div>
-    </div>
-    <div class="col-md-4 right">
-        <div class="p-4 box">
-            <h5>Register Employee</h5>
-            <form action="/light/register/" method="POST"> {% csrf_token %}
-                <div class="form-group">
-                    <label>Employee ID</label>
-                {{eform.username}}  
-                </div>
-                  <div class="form-group">
-                    <label>AreaCode</label>
-                {{eform.areafk}}
-                  </div>
-                <div class="form-group">
-                  <label>Email address</label>
-                    {{eform.email}}
-                  </div>
-                <div class="form-group">
-                  <label>Password</label>
-                  {{eform.password1}}
-                </div>
-                <div class="form-group">
-                  <label>Confirm Password</label>
-                  {{eform.password2}}
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-        </div>
-        <div class="p-4 box">
-            <h5>Register Light</h5>
-            <form>
-                  <div class="form-group">
-                    <label>AreaCode</label>
-                    <input type="text" class="form-control" id="examplearea" aria-describedby="emailHelp">
-                  </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-        </div>
-        <div class="p-4 box">
-            <h5>Add Address</h5>
-            <form>
-                  <div class="form-group">
-                    <label>AreaCode</label>
-                    <input type="text" class="form-control" id="examplearea" aria-describedby="emailHelp">
-                  </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Address</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-        </div>
-    </div>
-	</div>
+  </div>
+</div>
   
   
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
