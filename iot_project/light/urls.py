@@ -12,4 +12,5 @@ path('empsignin/',views.empsignin,name='empsignin'),
 path('lightreg/',views.lightreg,name='lightreg'),
 path('areareg/',views.areareg,name='areareg'),
 path('lightpage/',views.lightview,name='lightview'),
+path('logout/',views.logoutview,name='logout'),
 ]
