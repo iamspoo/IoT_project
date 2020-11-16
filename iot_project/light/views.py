@@ -81,14 +81,17 @@ def empsignin(request):
     user=None
     uname=request.POST.get("username")
     password=request.POST.get("password")
-    user=User.objects.filter(username=uname)
-    '''user=authenticate(request,username=uname,password=password)
-    login(request,user)'''
-    if not user or user[0].password != password:
+    #user=User.objects.filter(username=uname)
+    user=authenticate(username=uname,password=password)
+    print(user)
+    if user is not None:
+        login(user)
+        return HttpResponseRedirect('/light/emppage')
+    '''if not user or user[0].password != password:
         return render(request,'home.html',{'m':'Invalid username or password'})
     else:
         request.session['userid']=user[0].id
-        return HttpResponseRedirect('/light/emppage')
+        return HttpResponseRedirect('/light/emppage')'''
   
     
             
