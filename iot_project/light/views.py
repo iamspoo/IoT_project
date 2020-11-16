@@ -97,7 +97,7 @@ def empsignin(request):
 def logoutview(request):
     logout(request)
     return render(request,'home.html')
-
+       
             
             
             
