@@ -97,8 +97,17 @@ def empsignin(request):
 def logoutview(request):
     logout(request)
     return render(request,'home.html')
+              
        
-            
-            
-            
+def lightview(request):
+    lid=request.GET.get('lid','')
+    liobj=light.objects.filter(id=lid)
+    liobj=liobj[0]
+    areafk=liobj.areafk_id
+    areaobj=area.objects.filter(areacode=areafk)
+    areaobj=areaobj[0]
+    areaadd=areaobj.address
+    return render(request,'light/light_page.html',{"liobj":liobj,"areaadd":areaadd})
+    
+    
       
