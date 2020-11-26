@@ -14,4 +14,5 @@ path('lightreg/',views.lightreg,name='lightreg'),
 path('areareg/',views.areareg,name='areareg'),
 path('logout/',views.logoutview,name='logout'),
 path('lightview/',views.lightview,name='lightview'),
+path('automanual/',views.automanual,name='automanual'),
 ]

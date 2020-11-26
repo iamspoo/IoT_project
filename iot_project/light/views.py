@@ -101,6 +101,7 @@ def logoutview(request):
        
 def lightview(request):
     lid=request.GET.get('lid','')
+    request.session['lid']=lid
     liobj=light.objects.filter(id=lid)
     liobj=liobj[0]
     areafk=liobj.areafk_id
@@ -108,6 +109,27 @@ def lightview(request):
     areaobj=areaobj[0]
     areaadd=areaobj.address
     return render(request,'light/light_page.html',{"liobj":liobj,"areaadd":areaadd})
+    
+    
+def automanual(request):
+    state=request.GET.get('state')
+    if state=='auto':
+        state='A'
+    else:
+        state='M'
+    lid=request.session['lid']
+    liobj=light.objects.filter(id=lid)
+    liobj=liobj[0]
+    liobj.mode=state
+    try:
+        liobj.save()
+        data={"s":"success"}
+        return JsonResponse(data)
+    except Exception:
+        pass
+    data={"s":"failed"}
+    return JsonResponse(data)
+    
     
     
       
