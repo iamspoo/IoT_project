@@ -28,10 +28,9 @@
 				<h5 class="card-title">Light id: {{ i.id }}</h5>
                 <p class="card-text">Area code: {{ i.areafk_id }}</p>
                 <p class="card-text">Address: {{ i.address }}</p>
-				<div class="buttondiv">
-					<button class="btn btn-primary dreg" id="{{ i.id }}"> View Details</button> 
-				</div>
-			</div>
+				<a type="button" class="btn btn-primary dreg" id="{{ i.id }}" href="/light/lightview?lid={{i.id}}">
+                      View Details
+                </a>
 			</div>
 			</div>
         {% endfor %}

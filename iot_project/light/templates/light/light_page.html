@@ -122,7 +122,7 @@ input:checked + .slider:before {
 	
 	</head>
 	
-	<body>
+	<body onload="callfunc()">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="/">Smart Street Light</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -133,7 +133,8 @@ input:checked + .slider:before {
 	
 	<h2>{{liobj.id}}</h2>
 	<h2>{{liobj.status}}</h2>
-	<h2>{{liobj.mode}}</h2>
+	<!-- <h2>{{liobj.mode}}</h2> -->
+	<h2 class="modeclass" id="{{liobj.mode}}">{{liobj.mode}}</h2>
 	<h2>{{areaadd}}</h2>
 	
 	<label class="switch">
@@ -142,6 +143,18 @@ input:checked + .slider:before {
 	</label>
 	
 	<script>
+	
+function callfunc() {
+var mode = document.getElementsByClassName("modeclass")[0].id
+var checkBox = document.getElementById("myCheck");
+if (mode=='M') {
+checkBox.checked =true;
+}
+else{
+checkBox.checked =false;
+}
+}
+
  function myFunction() {
   var checkBox = document.getElementById("myCheck");
   var checkvalue;
@@ -156,7 +169,7 @@ input:checked + .slider:before {
         url:'/light/automanual/',
         data:{'state':checkvalue},
         datatype:'json',
-        success:function(data){if (data.s=="success"){alert(checkvalue);}else {alert("failed")}},
+        success:function(data){if (data.s=="success"){alert(checkvalue); location.reload(true);}else {alert("failed"); location.reload(true);}},
         })
 } 
 </script>
