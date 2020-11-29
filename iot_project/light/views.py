@@ -129,6 +129,23 @@ def automanual(request):
         pass
     data={"s":"failed"}
     return JsonResponse(data)
+
+
+def LowHigh(request):
+    state=request.GET.get('lightstate')
+    lid=request.session['lid']
+    liobj=light.objects.filter(id=lid)
+    liobj=liobj[0]
+    liobj.status=state
+    try:
+        liobj.save()
+        data={"s":"success"}
+        return JsonResponse(data)
+    except Exception:
+        pass
+    data={"s":"failed"}
+    return JsonResponse(data)
+    
     
     
     

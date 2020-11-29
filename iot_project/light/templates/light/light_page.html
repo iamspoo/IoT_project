@@ -67,52 +67,6 @@ input:checked + .slider:before {
 }
 </style> 
 
-<!-- <style>
-.toggle { 
-        position : relative ; 
-        display : inline-block; 
-        width : 100px; 
-        height : 52px; 
-        background-color: red; 
-        border-radius: 30px; 
-        border: 2px solid gray; 
-    } 
-            
-    /* After slide changes */
-    .toggle:after { 
-        content: ''; 
-        position: absolute; 
-        width: 50px; 
-        height: 50px; 
-        border-radius: 50%; 
-        background-color: gray; 
-        top: 1px;  
-        left: 1px; 
-        transition:  all 0.5s; 
-    } 
-            
-    /* Toggle text */
-    p { 
-        font-family: Arial, Helvetica, sans-serif; 
-        font-weight: bold; 
-    } 
-            
-    /* Checkbox cheked effect */
-    .checkbox:checked + .toggle::after { 
-        left : 49px;  
-    } 
-            
-    /* Checkbox cheked toggle label bg color */
-    .checkbox:checked + .toggle { 
-        background-color: green; 
-    } 
-            
-    /* Checkbox vanished */
-    .checkbox {  
-        display : none; 
-    } 
-</style>  -->
-
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
@@ -132,8 +86,7 @@ input:checked + .slider:before {
 	</nav>
 	
 	<h2>{{liobj.id}}</h2>
-	<h2>{{liobj.status}}</h2>
-	<!-- <h2>{{liobj.mode}}</h2> -->
+	<h2 class="modeclass1" id="{{liobj.status}}">{{liobj.status}}</h2>
 	<h2 class="modeclass" id="{{liobj.mode}}">{{liobj.mode}}</h2>
 	<h2>{{areaadd}}</h2>
 	
@@ -142,17 +95,34 @@ input:checked + .slider:before {
 	<span class="slider round"></span>
 	</label>
 	
+	
+	<label class="switch">
+	<input type="checkbox" id="myCheck1" onclick="myFunction1()" >
+	<span class="slider round"></span>
+	</label>
+	
 	<script>
 	
 function callfunc() {
 var mode = document.getElementsByClassName("modeclass")[0].id
+var status = document.getElementsByClassName("modeclass1")[0].id
 var checkBox = document.getElementById("myCheck");
+var checkBox1= document.getElementById("myCheck1");
 if (mode=='M') {
 checkBox.checked =true;
+document.getElementById("myCheck1").disabled  = false;
+if (status=='H') {
+checkBox1.checked=true;
+}
+else{
+checkBox1.checked=false;
+}
 }
 else{
 checkBox.checked =false;
+document.getElementById("myCheck1").disabled = true;
 }
+
 }
 
  function myFunction() {
@@ -164,10 +134,35 @@ checkBox.checked =false;
   else {
   checkvalue="auto";
    }
+   
+  if (checkvalue=="auto") {
+	document.getElementById("myCheck1").disabled = true;
+	}
    $.ajax({
         type:'GET',
         url:'/light/automanual/',
         data:{'state':checkvalue},
+        datatype:'json',
+        success:function(data){if (data.s=="success"){alert(checkvalue); location.reload(true); }else {alert("failed"); location.reload(true);}},
+        })
+		
+	
+} 
+
+
+function myFunction1() {
+  var checkBox = document.getElementById("myCheck1");
+  var checkvalue;
+  if (checkBox.checked == true){
+  checkvalue="H";
+  } 
+  else {
+  checkvalue="L";
+   }
+   $.ajax({
+        type:'GET',
+        url:'/light/LowHigh/',
+        data:{'lightstate':checkvalue},
         datatype:'json',
         success:function(data){if (data.s=="success"){alert(checkvalue); location.reload(true);}else {alert("failed"); location.reload(true);}},
         })
