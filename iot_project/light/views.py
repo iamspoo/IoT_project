@@ -148,7 +148,7 @@ def LowHigh(request):
     lid=request.session['lid']
     liobj=light.objects.filter(id=lid)
     liobj=liobj[0]
-    if state='High':
+    if state=='High':
         state='H'
     else:
         state='L'
