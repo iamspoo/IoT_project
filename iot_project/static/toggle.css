@@ -1,15 +1,19 @@
-.switch {
-			position: relative;
-			display: inline-block;
-			width: 60px;
-			height: 34px;
-			}
+body{
+  font-family: 'Playfair Display', serif;
+}
 
-		.switch input {
-		opacity: 0;
-		width: 0;
-		height: 0;
-		}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  }
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  }
 
 .slider {
   position: absolute;
@@ -57,3 +61,4 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
