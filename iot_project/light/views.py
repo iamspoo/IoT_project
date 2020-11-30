@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect,HttpResponse,JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from rest_framework import viewsets
+from .serializers import ModeSerializer, StateSerializer
 
 @login_required(login_url='/')
 def adminview(request):
@@ -162,7 +164,14 @@ def LowHigh(request):
     data={"s":"failed"}
     return JsonResponse(data)
     
+
+class StateViewSet(viewsets.ModelViewSet):
+    queryset = light.objects.all()
+    serializer_class = StateSerializer
     
+class ModeViewSet(viewsets.ModelViewSet):
+    queryset = light.objects.all()
+    serializer_class = ModeSerializer
     
     
       

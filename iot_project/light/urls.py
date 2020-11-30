@@ -1,7 +1,11 @@
 from . import views
 from django.urls import path,include
 from django.conf.urls import url
+from rest_framework import routers
 
+router = routers.DefaultRouter()
+router.register(r'mode', views.ModeViewSet)
+router.register(r'state', views.StateViewSet)
 
 
 urlpatterns=[
@@ -16,4 +20,5 @@ path('logout/',views.logoutview,name='logout'),
 path('lightview/',views.lightview,name='lightview'),
 path('automanual/',views.automanual,name='automanual'),
 path('LowHigh/',views.LowHigh,name='LowHigh'),
+path('', include(router.urls)),
 ]
