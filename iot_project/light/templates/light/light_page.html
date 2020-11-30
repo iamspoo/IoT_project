@@ -31,20 +31,27 @@
 	<div class="card">
 	<div class="card-body">
 	<h3 class="card-title">Light id: {{ liobj.id }}</h3>
-  <h3 class="modeclass1" id="{{liobj.status}}">State: {{liobj.status}}</h3>
-  <span>Low</span>
-	<label class="switch">
-	<input type="checkbox" id="myCheck1" onclick="myFunction1()" >
-	<span class="slider round"></span>
-	</label>
-  <span>High</span>
-
+	
 	<h3 class="modeclass" id="{{liobj.mode}}">Mode: {{liobj.mode}}</h3>
-
+	
+	 <span style="font-size:125%">Auto</span>
 	<label class="switch">
 	<input type="checkbox" id="myCheck" onclick="myFunction()" >
 	<span class="slider round"></span>
 	</label>
+	  <span style="font-size:125%">Manual</span>
+	  
+	<div class="statusclass">
+	  
+  <h3 class="modeclass1" id="{{liobj.status}}">State: {{liobj.status}}</h3>
+  <span style="font-size:125%">Low</span>
+	<label class="switch">
+	<input type="checkbox" id="myCheck1" onclick="myFunction1()" >
+	<span class="slider round"></span>
+	</label>
+  <span style="font-size:125%">High</span>
+  
+  </div>
 	
 	<h3>Address: {{areaadd}}</h3>
 	</div>
@@ -62,7 +69,6 @@ var checkBox = document.getElementById("myCheck");
 var checkBox1= document.getElementById("myCheck1");
 if (mode=='Manual') {
 checkBox.checked =true;
-document.getElementById("myCheck1").disabled  = false;
 if (status=='High') {
 checkBox1.checked=true;
 }
@@ -72,7 +78,7 @@ checkBox1.checked=false;
 }
 else{
 checkBox.checked =false;
-document.getElementById("myCheck1").disabled = true;
+document.getElementsByClassName("statusclass")[0].hidden=true;
 }
 
 }
@@ -86,10 +92,6 @@ document.getElementById("myCheck1").disabled = true;
   else {
   checkvalue="Auto";
    }
-   
-  if (checkvalue=="Auto") {
-	document.getElementById("myCheck1").disabled = true;
-	}
    $.ajax({
         type:'GET',
         url:'/light/automanual/',
