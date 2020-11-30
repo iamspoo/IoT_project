@@ -104,6 +104,18 @@ def lightview(request):
     request.session['lid']=lid
     liobj=light.objects.filter(id=lid)
     liobj=liobj[0]
+    
+    if liobj.status == 'H':
+        liobj.status='High'
+    else:
+        liobj.status='Low'
+        
+    if liobj.mode=='M':
+        liobj.mode='Manual'
+    else:
+        liobj.mode='Auto'
+        
+    
     areafk=liobj.areafk_id
     areaobj=area.objects.filter(areacode=areafk)
     areaobj=areaobj[0]
