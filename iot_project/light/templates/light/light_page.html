@@ -57,10 +57,10 @@ var mode = document.getElementsByClassName("modeclass")[0].id
 var status = document.getElementsByClassName("modeclass1")[0].id
 var checkBox = document.getElementById("myCheck");
 var checkBox1= document.getElementById("myCheck1");
-if (mode=='M') {
+if (mode=='Manual') {
 checkBox.checked =true;
 document.getElementById("myCheck1").disabled  = false;
-if (status=='H') {
+if (status=='High') {
 checkBox1.checked=true;
 }
 else{
@@ -78,13 +78,13 @@ document.getElementById("myCheck1").disabled = true;
   var checkBox = document.getElementById("myCheck");
   var checkvalue;
   if (checkBox.checked == true){
-  checkvalue="manual";
+  checkvalue="Manual";
   } 
   else {
-  checkvalue="auto";
+  checkvalue="Auto";
    }
    
-  if (checkvalue=="auto") {
+  if (checkvalue=="Auto") {
 	document.getElementById("myCheck1").disabled = true;
 	}
    $.ajax({
@@ -103,10 +103,10 @@ function myFunction1() {
   var checkBox = document.getElementById("myCheck1");
   var checkvalue;
   if (checkBox.checked == true){
-  checkvalue="H";
+  checkvalue="High";
   } 
   else {
-  checkvalue="L";
+  checkvalue="Low";
    }
    $.ajax({
         type:'GET',

@@ -125,7 +125,7 @@ def lightview(request):
     
 def automanual(request):
     state=request.GET.get('state')
-    if state=='auto':
+    if state=='Auto':
         state='A'
     else:
         state='M'
@@ -148,6 +148,10 @@ def LowHigh(request):
     lid=request.session['lid']
     liobj=light.objects.filter(id=lid)
     liobj=liobj[0]
+    if state='High':
+        state='H'
+    else:
+        state='L'
     liobj.status=state
     try:
         liobj.save()
