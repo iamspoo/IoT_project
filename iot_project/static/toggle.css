@@ -2,6 +2,10 @@ body{
   font-family: 'Playfair Display', serif;
 }
 
+.navbar{
+  margin-bottom: 20px;
+}
+
 .switch {
   position: relative;
   display: inline-block;
