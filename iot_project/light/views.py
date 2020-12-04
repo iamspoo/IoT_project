@@ -100,7 +100,7 @@ def logoutview(request):
     logout(request)
     return render(request,'home.html')
               
-       
+@login_required(login_url='/')       
 def lightview(request):
     lid=request.GET.get('lid','')
     request.session['lid']=lid
