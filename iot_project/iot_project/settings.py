@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'streetlight',
         'USER':'root',
-        'PASSWORD':'',
+        'PASSWORD':'Mydb123**',
         'HOST':'localhost',
         'PORT':'3306',
         'OPTIONS':{
