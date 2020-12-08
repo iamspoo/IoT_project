@@ -109,8 +109,10 @@ def lightview(request):
     
     if liobj.status == 'H':
         liobj.status='High'
-    else:
+    elif liobj.status == 'L':
         liobj.status='Low'
+    else:
+        liobj.status='Medium'
         
     if liobj.mode=='M':
         liobj.mode='Manual'
