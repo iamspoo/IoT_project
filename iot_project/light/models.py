@@ -15,3 +15,9 @@ class light(models.Model):
 class area(models.Model):
     areacode=models.CharField(max_length=10,primary_key=True)
     address=models.TextField()
+
+class history(models.Model):
+    lid=models.IntegerField(default=0)
+    status=models.CharField(max_length=1)
+    mode=models.CharField(max_length=1)
+    time=models.CharField(max_length=50)

@@ -20,5 +20,6 @@ path('logout/',views.logoutview,name='logout'),
 path('lightview/',views.lightview,name='lightview'),
 path('automanual/',views.automanual,name='automanual'),
 path('LowHigh/',views.LowHigh,name='LowHigh'),
+path('report/',views.report,name='report'),
 path('', include(router.urls)),
 ]

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import light,area,Profile
+from .models import light,area,Profile,history
 from .forms import EmpForm,AreaForm,LightForm
 from django.http import HttpResponseRedirect,HttpResponse,JsonResponse
 from django.contrib.auth.models import User
@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
 from .serializers import ModeSerializer, StateSerializer
+from rest_framework.response import Response
+import datetime
 
 @login_required(login_url='/')
 def adminview(request):
@@ -137,8 +139,10 @@ def automanual(request):
     liobj=light.objects.filter(id=lid)
     liobj=liobj[0]
     liobj.mode=state
+    h=history(lid=liobj.id,status=liobj.status,mode=state,time=str(datetime.datetime.now()))
     try:
         liobj.save()
+        h.save()
         data={"s":"success"}
         return JsonResponse(data)
     except Exception:
@@ -157,8 +161,10 @@ def LowHigh(request):
     else:
         state='L'
     liobj.status=state
+    h=history(lid=liobj.id,status=state,mode=liobj.mode,time=str(datetime.datetime.now()))
     try:
         liobj.save()
+        h.save()
         data={"s":"success"}
         return JsonResponse(data)
     except Exception:
@@ -166,14 +172,36 @@ def LowHigh(request):
     data={"s":"failed"}
     return JsonResponse(data)
     
+def report(request):
+    report=history.objects.all()
+    return render(request,'light/report.html',{"report":report})
+
 
 class StateViewSet(viewsets.ModelViewSet):
     queryset = light.objects.all()
     serializer_class = StateSerializer
+    def update(self, request, *args, **kwargs):
+        partial = True
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        h=history(lid=instance.id,status=request.data['status'],mode=instance.mode,time=str(datetime.datetime.now()))
+        h.save()
+        self.perform_update(serializer)
+        return Response(serializer.data)
     
 class ModeViewSet(viewsets.ModelViewSet):
     queryset = light.objects.all()
     serializer_class = ModeSerializer
-    
+    def update(self, request, *args, **kwargs):
+        partial = True
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        h=history(lid=instance.id,status=instance.status,mode=request.data['mode'],time=str(datetime.datetime.now()))
+        h.save()
+        self.perform_update(serializer)
+        return Response(serializer.data)
+
     
       
